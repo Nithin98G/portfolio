@@ -738,62 +738,304 @@ footer {
 }
 
 /* =========================
-   PRINCIPLES          ← ADD IT HERE
+   PRINCIPLES
 ========================= */
+
 .principles {
-    background: #0f172a;
+    background:
+        linear-gradient(
+            135deg,
+            #172554 0%,
+            #1e3a8a 50%,
+            #0f766e 100%
+        );
+
     max-width: none;
+
     padding-left: 6%;
     padding-right: 6%;
+
     color: white;
+
+    position: relative;
+
+    overflow: hidden;
 }
+
+/* Soft background glow */
+
+.principles::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    background: rgba(96, 165, 250, 0.15);
+
+    border-radius: 50%;
+
+    top: -180px;
+    left: -100px;
+
+    animation: principleFloat 10s ease-in-out infinite;
+}
+
+.principles::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    background: rgba(52, 211, 153, 0.12);
+
+    border-radius: 50%;
+
+    bottom: -160px;
+    right: -80px;
+
+    animation: principleFloatReverse 12s ease-in-out infinite;
+}
+
+
+/* Keep content above background effects */
+
+.principles > * {
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* Section label */
 
 .principles .section-label {
-    color: #93c5fd;
-}
+    color: #bfdbfe;
 
-.principles h2 {
-    color: white;
     max-width: 1100px;
+
     margin-left: auto;
     margin-right: auto;
 }
 
+
+/* Main heading */
+
+.principles h2 {
+    color: white;
+
+    max-width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-bottom: 35px;
+}
+
+
+/* Two principle cards */
+
 .principles-grid {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 24px;
+
     max-width: 1100px;
+
     margin: 30px auto 0;
 }
 
+
+/* Individual cards */
+
 .principle-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 32px 28px;
+    background: rgba(255, 255, 255, 0.10);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 18px;
+
+    padding: 35px 30px;
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
+
+/* Card hover */
+
+.principle-card:hover {
+    transform: translateY(-7px);
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border-color: rgba(255, 255, 255, 0.35);
+
+    box-shadow:
+        0 22px 45px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Card headings */
+
 .principle-card h3 {
-    font-size: 20px;
+    font-size: 22px;
+
     font-weight: 700;
+
     color: white;
+
     margin-bottom: 14px;
+
     letter-spacing: -0.02em;
 }
 
+
+/* Card text */
+
 .principle-card p {
     font-size: 16px;
+
     line-height: 1.7;
-    color: #cbd5e1;
+
+    color: #dbeafe;
+
     margin: 0;
+
     max-width: none;
 }
 
+
+/* Translation */
+
+.principle-card .translation {
+    color: #93c5fd;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    margin-bottom: 12px;
+}
+
+
+/* Philosophy statement */
+
+.principle-card .philosophy {
+    color: #f8fafc;
+
+    font-size: 17px;
+
+    line-height: 1.75;
+}
+
+
+/* Decorative line */
+
+.principle-card::before {
+    content: "";
+
+    display: block;
+
+    width: 45px;
+
+    height: 4px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #60a5fa,
+        #34d399
+    );
+
+    margin-bottom: 25px;
+}
+
+
+/* Different accent for second card */
+
+.principle-card:nth-child(2)::before {
+    background: linear-gradient(
+        90deg,
+        #fbbf24,
+        #f472b6
+    );
+}
+
+
+/* Floating background animations */
+
+@keyframes principleFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(50px, 35px);
+    }
+}
+
+
+@keyframes principleFloatReverse {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-40px, -30px);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 700px) {
+
+    .principles {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
     .principles-grid {
         grid-template-columns: 1fr;
+
+        gap: 18px;
     }
+
+    .principle-card {
+        padding: 28px 24px;
+    }
+
+    .principle-card h3 {
+        font-size: 20px;
+    }
+
+    .principle-card .philosophy {
+        font-size: 16px;
+    }
+
 }
 
 /* =========================
