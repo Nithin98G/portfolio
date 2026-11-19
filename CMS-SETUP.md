@@ -1,19 +1,30 @@
-# Portfolio CMS setup
+# Portfolio CMS — connected to Supabase
 
-## 1. Supabase
-Create a project. In Project Settings > API, copy Project URL and anon/public key into `supabase-config.js`.
+**Supabase project:** `nithin-portfolio` (`yusnszhzcshfdzkawyal`)
 
-## 2. Database and image storage
-In Supabase SQL Editor, open `supabase-setup.sql`, replace every `YOUR_ADMIN_EMAIL` with the exact email used for admin login, and run the SQL.
+The following have already been deployed to Supabase:
+- `public.projects` with published/draft project data
+- `public.portfolio_admins` for explicit user-UUID admin access
+- Row-level security for published project reads and admin-only changes
+- Public `project-images` storage bucket with authenticated admin-only upload permissions
+- Original eight portfolio projects seeded and published
 
-## 3. Create admin login
-Supabase > Authentication > Users > Add user. Use your email and a password. Confirm the user (or disable email confirmation for initial setup). This must match the email in the SQL policies.
+The public Supabase URL and publishable key are already in `supabase-config.js`.
 
-## 4. Deploy
-Files are designed for static hosting (GitHub Pages). Admin is at `/admin.html`. Configure the project URL and anon key. Never place the Supabase service-role key in browser code.
+## Finish admin authentication
+1. Open Supabase Dashboard > Authentication > Users > Add user.
+2. Create the admin account with your own email and strong password. Confirm the email.
+3. Use the created user's UUID to grant admin access with this one-time statement in the SQL Editor:
 
-## Files
-- `admin.html` / `admin.js` / `admin.css`: authenticated project manager
-- `portfolio.js`: public projects renderer
-- `supabase-config.js`: public project URL and anon key
-- `supabase-setup.sql`: tables, RLS policies, and public image bucket
+```sql
+insert into public.portfolio_admins (user_id)
+values ('YOUR_AUTH_USER_UUID')
+on conflict (user_id) do nothing;
+```
+
+You can also ask ChatGPT to grant admin access after creating the user, if the Supabase connection is enabled.
+
+## Deploy
+This code is on the `cms-admin` development branch. Merge its pull request into `main` **after** admin access is configured and tested. Once deployed, log in at `/admin.html`.
+
+Important: only use the publishable key in browser code. Never commit a secret/service-role key to the repository.
