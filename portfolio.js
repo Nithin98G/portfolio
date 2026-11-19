@@ -1,0 +1,6 @@
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+const supabase=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const target=document.querySelector('#projects-grid');
+if(target){const {data,error}=await supabase.from('projects').select('*').eq('published',true).order('featured',{ascending:false}).order('sort_order').order('created_at',{ascending:false});if(error){console.error('Portfolio projects failed to load:',error);target.innerHTML='<p>Projects are temporarily unavailable.</p>';}else{target.innerHTML=(data||[]).map((p,i)=>{const img=p.cover_url?'<img class="project-cover" src="'+esc(p.cover_url)+'" alt="'+esc(p.title)+'">':'';const metric=p.metrics?'<strong>'+esc(p.metrics)+'</strong>':'';const desc=esc(p.description||'');return '<article class="project cms-project">'+img+'<span>'+String(i+1).padStart(2,'0')+'</span><h3>'+esc(p.title)+'</h3><p>'+desc+'</p>'+metric+(p.gallery?.length?'<details><summary>View project gallery</summary><div class="project-gallery">'+p.gallery.map(u=>'<img src="'+esc(u)+'" alt="'+esc(p.title)+' gallery">').join('')+'</div></details>':'')+'</article>';}).join('');}}
+function esc(s=''){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
