@@ -1,0 +1,12 @@
+-- This Supabase project has already been configured using applied migrations.
+-- The production database currently contains projects and portfolio_admins tables,
+-- RLS policies, and the project-images storage bucket.
+--
+-- To grant your own newly-created Supabase Auth user admin access, replace the
+-- UUID below with its value from Authentication > Users and run in SQL Editor:
+--
+-- insert into public.portfolio_admins(user_id)
+-- values ('YOUR_AUTH_USER_UUID')
+-- on conflict (user_id) do nothing;
+--
+-- Do not run the earlier email-placeholder setup script.

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio CMS | Nithin N George</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="shell">
+  <header><div><p class="eyebrow">PORTFOLIO CMS</p><h1>Project Manager</h1><p class="muted">Manage your portfolio projects without editing code.</p></div><button id="logout" class="secondary hidden">Log out</button></header>
+  <section id="login-panel" class="panel login-panel">
+    <h2>Admin login</h2><p class="muted">Sign in with your portfolio administrator account.</p>
+    <form id="login-form"><label>Email<input id="email" type="email" required autocomplete="email"></label><label>Password<input id="password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button></form>
+    <p id="login-message" class="message"></p>
+  </section>
+  <section id="app-panel" class="hidden">
+    <div class="toolbar"><h2>Your projects</h2><button id="new-project">+ Add project</button></div>
+    <p id="status" class="message"></p>
+    <div id="project-list" class="project-list"></div>
+    <section id="editor" class="panel hidden">
+      <div class="toolbar"><h2 id="editor-title">New project</h2><button id="close-editor" class="secondary">Close</button></div>
+      <form id="project-form">
+        <input id="project-id" type="hidden">
+        <div class="form-grid">
+          <label>Project title *<input id="title" required></label>
+          <label>Company / client<input id="company"></label>
+          <label>Category<input id="category" placeholder="Automation, CI, Analytics…"></label>
+          <label>Start date<input id="start-date" placeholder="2025"></label>
+          <label>End date<input id="end-date" placeholder="Present"></label>
+          <label>Key metric / result<input id="metrics" placeholder="e.g. 25% → 17%"></label>
+        </div>
+        <label>Short description *<textarea id="description" required rows="3"></textarea></label>
+        <label>Problem<textarea id="problem" rows="3"></textarea></label>
+        <label>Solution<textarea id="solution" rows="3"></textarea></label>
+        <label>Results<textarea id="results" rows="3"></textarea></label>
+        <label>Skills / tools (comma separated)<input id="skills" placeholder="Lean, Power BI, Python"></label>
+        <label>Cover image<input id="cover-file" type="file" accept="image/*"></label>
+        <div id="cover-preview" class="preview"></div>
+        <label>Gallery images (select multiple)<input id="gallery-files" type="file" accept="image/*" multiple></label>
+        <div id="gallery-preview" class="preview"></div>
+        <div class="checks"><label><input id="featured" type="checkbox"> Featured project</label><label><input id="published" type="checkbox"> Publish on website</label></div>
+        <button type="submit" id="save-project">Save project</button>
+      </form>
+    </section>
+  </section>
+</div>
+<script type="module" src="admin.js"></script>
+</body></html>
